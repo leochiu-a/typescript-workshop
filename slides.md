@@ -34,11 +34,11 @@ transition: fade-out
 - Function
 - Vue: `definedProps`, `defineEmits`
 - Utility Types
-- keyword - as、!
-- type narrowing
+- Keyword - as、!
+- Type narrowing
+- Summary
+- (Bonus) Generic
 - 延伸閱讀
-
-
 
 <style>
 h1 {
