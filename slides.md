@@ -192,9 +192,9 @@ const obj: any = { a: '123' };
 
 <br>
 
-<div v-click="3">
+<div v-click="4">
 
-- [exercise](https://www.typescriptlang.org/play/?#code/PTAEAcCcHsCMBsCmBbUBGUBaUhpqMHfyoALgIawDOogIW6DR6oKRKAUPQMbQB2ZhRpZAXKAN6h4pRPD4dIAS1YBzUAF9QAXlABteqE0ChIsaADkgfStAFp76ANKABuxeAFdEffcUmRww6foVmNWwcNiijoDWDoBTceZWNvaOhJDOrPry3lra-oEGgPcZgOl64dZ2DgYAFtCEop7y9AC6jCAQMAgooABMWLiAMdqACEagAKpkiJAAkqwAZtBUdIAw-4ws7Jy2vQPDoyr88gDcjHN9gyMAdKzEyIjKBgAyiND69JsLu8QyRypoAAxPV-Pb0DvIxJBSiAAmxyGNl69CAA) 
+- [exercise](https://www.typescriptlang.org/play/?#code/PTAEAcCcHsCMBsCmBbUBGUBaUhpqMHfyoALgIawDOogIW6DR6oKRKAUPQMbQB2ZhRpZAXKAN6h4pRPD4dIAS1YBzUAF9QAXlABteqE0ChIsaADkgfStAFp76ANKABuxeAFdEffcUmRww6foVmNWwcNiijoDWDoBTceZWNvaOhJDOrPry3lra-oEGgPcZgOl64dZ2DgYAFtCEop7y9AC6jCAQMAgooABMWLh4gMbWgKdygNByNLS9gDD-jCzsnLZkiJCsxMj5rLbIAZDKBgAyiND6zGwcoMQy+RLScipoAAynQ9uj45AAkqwAZtB8gmMTUzPiMUcKy-w+mjek2miCSWj2oPo5SAA) 
 
 </div>
 
@@ -252,6 +252,7 @@ const employee: Employee = {
 type StringOrNumber = string | number;
 
 let value: StringOrNumber;
+// value 可以是 string 或是 number
 value = "Hello";
 value = 123;
 ```
@@ -267,6 +268,7 @@ type Bird = { canFly: boolean };
 
 type FlyingAnimal = Animal & Bird;
 
+// birder 必須同時存在 name 跟 canFly，不然會有 TS error
 const bird: FlyingAnimal = {
   name: "Eagle",
   canFly: true
@@ -277,7 +279,7 @@ const bird: FlyingAnimal = {
 
 <div v-click="3">
 
-- [exercise](https://www.typescriptlang.org/play/?#code/PTAEAcCcHsCMBsCmBbUBmUBaUhpqMBSuoAlgHYAuiAZgIYDGiogaEaikCe49g+K6AIRqAKLLh40FonqAQt0DR6oFIlQDD-gSHNAloqA6L0CHKoFPdUADEArvHgAVQskT9Bw0Y1AAFKpFKHjpoSMQAoV63Z8Bz0e5CggBaKgO4B6q400MQAzqSgKGYuAIwAXN4JFgC8oADerqCgxFTGqQBEAILwhHQlADR5oFFU8LYsqQCsAAxdHXX5sIjElISkUakA2iUAEohNpAAWoACS0dqQVMTVNaAlNoQAJqAAarRUpISRJQC6rgC+ANz+YGqAAdEc4ZExcT7miABMqU4fqAsrl8oVitsAEJwWr1ObQVbwFgAJVOiFSvx6cIRkCiAHVoJAANaIPYYtq3B6uAJQOBIVAAFiwoEAWdqASv9AABygGgFUCQ7SkUiRUDSdyeeh8gWRKwwcBRYE5erNfrwVIxSAkADmd1A9QiQkgqtI6uIWvy9SihAAXujQAByKLIJrwW2gAA+duMe0I2mQLvdtuakA1iFtD3uorY4v5guIvAAbgMRvLQaBIgBhSo0ImpAAUAEpgQA+UBx6D7bWU9wRaKxZAsCUx1INoUgxVUZWlDNVImgACyiFq+TN+T1hNKCG0A62Q5n5qtNpKnu9yEHM6H9XTmezoHzRZya-XM+rUWgSAAdEINTmSs3iKAaFvSQBCEp5h75G6UoA)
+- [exercise](https://www.typescriptlang.org/play/?#code/PTAEAcCcHsCMBsCmBbUBmUBaUhpqMBSuoAlgHYAuiAZgIYDGiogaEaikCe49g+K6AIRqAKLLh40FonqAQt0DR6oFIlQDD-gSHNAloqA6L0CHKoFPdUADEArvHgAVQskT9Bw0Y1AAFKpFKHjpoSMQAoV63ZbdBoyYHOou6e9DZ2Dv5mLu4goIAWioDuAequNNDEAM6koChRogCMAFx8Aeb0ALygAN6uoKDEVMZFAEQAgvCEdE0ANDWg6VTwtixFAKwADBNjPbWwiMSUhKTpRQDaTQASiAOkABagAJIZ2pBUxJ1doE02hAAmoABqtFSkhGlNALquAL4A3DFgakAAdEcFJpTLZEouABMRScpVAFWqtXqjUuACE4N1ejtoMd4CwAErPRBFKFTbG4yDpADq0EgAGtEDdSSNvn9XLEoHAkKgACxYUCALO1AJX+gAA5QDQCqA0dpSKQ0qBpME2PRpbK0lYYOB0giqr1BrN4EVMpASABzH6gXqpISQI2kE3Ec21XrpQgALxJoAA5OlkAN4F7QAAfb3GG6EbTIQMhr2DSCmxBev6-JVeVVy4i8ABucyWOqRoDSAGF2jR6UUABQASgRAD5QFnoLcLWz3KkMllkCx02kij3iPm9VQDc0Sx16aAALKIbq1Z21a105oIbQzi5zjcu92epphiPIWcbue9Yul8ugat1qpH48b9vpaBIAB0QlNFaa-dANDPTIAhE0qz+WovjZIA)
 
 </div>
 
@@ -305,9 +307,13 @@ console.log(addOptional(5, 3)); // 輸出 8
 
 # Vue - defineProps
 
+<div v-click="1">
+
 - runtime declaration
 
-```ts
+`lang="ts"` 在 Vue 使用 TypeScript 使用時必須要加，不然 Vue 不知道你是用 TS 還是 JS
+
+```ts {1-2|null}
 <script setup lang="ts">
 const props = defineProps({
   foo: { type: String, required: true },
@@ -319,20 +325,26 @@ props.bar // number | undefined
 </script>
 ```
 
-- type-based declaration
+</div>
 
-```
+<div v-click="2">
+
+- type-based declaration <span v-mark.orange="2">(recommended)</span>
+
+```ts
 const props = defineProps<{
   foo: string
   bar?: number
 }>()
 ```
 
+</div>
+
 ---
 
 # Vue - defineEmits
 
-<v-clicks>
+<div v-click="1">
 
 - runtime 
 
@@ -340,7 +352,11 @@ const props = defineProps<{
 const emit = defineEmits(['change', 'update'])
 ```
 
-- type-based
+</div>
+
+<div v-click="2">
+
+- type-based <span v-mark.orange="2">(recommended)</span>
 
 ```ts
 const emit = defineEmits<{
@@ -349,7 +365,11 @@ const emit = defineEmits<{
 }>()
 ```
 
-- 3.3+: alternative, more succinct syntax
+</div>
+
+<div v-click="3">
+
+- 3.3+: alternative, more succinct syntax <span v-mark.orange="3">(recommended)</span>
 
 ```ts
 const emit = defineEmits<{
@@ -358,15 +378,22 @@ const emit = defineEmits<{
 }>()
 ```
 
-- [exercise](https://play.vuejs.org/#eNp9kctOwzAQRX9lZCGVSqVZwKqECqi6gAVU0KU3eUyKW8e2bCcURfl3xg59LFB3nnvvjM54OvZkzLRtkM1Y6gorjAeHvjFzrkRttPXQgcUKeqisrmFE0RFXXJVYCYUrq41Lu35+Pb4/qctaeJeSxlWaDENpHBUeayMzj1QBpKVoob2ptH3gTJAFQoHPcscZzHb486dO20w2yFnsAeg6iKrMcpTQ92Fu0NO88V4reCykKHbUe4VEcT3SahGEdZaPJrFzTKPSZEgPHAmB0CtNzvDYhHlXaFWJzXTrtKLv6UKYs0LXRki078YLrQh2BtEJXial/n6NmrcNTg568YXF7h996/ZB42xl0aFtac2j5zO7QT/Yy8833NP7aNa6bCSlL5gf6LRsAuMQe25USdhnuUj7Eo8s1GbtlnuPyh2WCqAh2cc8Z3T4xYXVT7i307vYx1XP+l/BM8of)
+</div>
 
-</v-clicks>
+<div v-click="4">
+
+- [exercise](https://play.vuejs.org/#eNqFU82O0zAQfpWRhZRW6o/4OWXTamHVA0jAaukNc0jTSddbx45sp7SqetgriGeAK+KKxIHnYYG3YOykf9Kye0r8zTfjb8bfrNnTsuwtKmQxS2xmROnAoqtKkKmaDThzlrMhV6IotXGwBoM5bCA3uoCI0qJd6EwXZYP3+v7gq0YnXHGVaWUdZJUxqNw4ncDAl0msM0LNhq32nuPSiaXoW66A7pLpBGUM0c3Xz7++fI86sEhlhQSkwpQyFSqCTeeY+vv625+fHw6oztzKu/n04+/1xwPey4sxsbh6txdzmaqpxDMpsnktukXy2jAYwtoX2/fTC0WIQHGuqEjSr0dJg6ODw4LUOqQTQBLm5P8AYt+unzF9OKuxU626mb+ySyjFjkXUrD5VSvoHZVmH3olE52LWu7Ja0WMGiZxldJuQaF6XTlBTnMW1eB9LpdTvXwTMmQrDhELOJWbzW/Aru/QYZ+cGLZoFcraLudTM0NXh0ZtXuKT/XbDQ00oS+47gBVotK6+xpj2rfNvmgBfUPg9eI9eM7WjpUNltU0dCvbGyIMbDHq2fnzOypJ///yay7+Jx70nIo+ek4W7tfM+STDEXCs+NLm2y3pCxg/trdFQI16B3+2MqFmDdSiLVnQpLkVUMucTlCczSMoaHj0p6hsBt2Iturg2xBRUCocIScQbxHFcNWht0l0V5k8o5reA0WI1YD5D0tSKttk6j1fCZ7YMk2p91AHthi2BD02nK9et6W1V9klV30/wdu3XzD4aYfi8=)
+
+</div>
+
 
 ---
 
 # Utility Types
 
 - `Pick<Type, Keys>`
+
+Pick 是 TypeScript 的一個內建工具類型，用來從一個型別中選擇某些屬性，並創建一個新型別，只包含這些屬性。
 
 ```ts {2-3|5|all}
 interface Todo {
@@ -375,6 +402,7 @@ interface Todo {
   completed: boolean;
 }
  
+// 我們希望 TodoPreview 只包含了 Todo 的 title 跟 completed 屬性
 type TodoPreview = Pick<Todo, "title" | "completed">;
  
 const todo: TodoPreview = {
@@ -389,6 +417,8 @@ const todo: TodoPreview = {
 
 - `Record<Keys, Type>`
 
+`Record` 可以幫助你根據某個 `Keys` set 來生成一個具有這些 `Keys` 且值為指定型別 `Type` 的物件。
+
 ```ts
 type CatName = "miffy" | "boris" | "mordred";
  
@@ -397,6 +427,7 @@ interface CatInfo {
   breed: string;
 }
  
+// ｃats 這個物件的 Keys 為 CatName，並且每個隻貓都有同樣的 CatInfo
 const cats: Record<CatName, CatInfo> = {
   miffy: { age: 10, breed: "Persian" },
   boris: { age: 5, breed: "Maine Coon" },
@@ -404,7 +435,7 @@ const cats: Record<CatName, CatInfo> = {
 };
 ```
 
-- [exercise](https://play.vuejs.org/#eNqtVD9v00AU/ypPXkylEkvA5DqBQju0Q4kKbF5M/Jxca99ZvnNIFSKxIBWlA0JMDDBVUCF1YAEJxKdpaDa+Au/uXMektBNe/O79/d17v3djZz3PW8MSHd8JFGZ5GinshBwgeCCyXAsAfimxaIeO/oVOpcuxyJiUTHBJpsbJeniUJPAaGekoewXLFUhUZQ5pxPsUqMifrCzLRaFgDOogR3hChbqFSFiKq1azK1LsLmrABJJCZOC2PG126wQadG3SB303Moe8R2EK9BX8Zn5ow1jj5VGGPrjbYsBhQ6C7qpWYRSwl7R5pW7HAeziK6ELY6olMe0zWFpkbHfAvwa2KRHHGuA+qKNHkt2iSKJX23C9RqtqusweebVrHWaVWUaWE9Vt7UnCal0kZOoQlp4sUD3Nl2+/bYtoWpal4tm10dVETM8De/j/0e3KkdaHTLZCwDTF0apuKij4qa958tIMjkmtjJuIyJe9rjLsoRVpqjNbtfsljgt3wM2i3zCAZ7z+WmyOFvOKUBao9J8Y/dGiwesBXXX0B93brjomjjlIXL0hxmfAxGxqBxMGtjuYIbPFEBB6dKn3e2TE8GY/N7FqaNTCZBF6+8Ni0pLlwMRyqfRb5NUWgwZFmmTKtJJJTBsObidD7d2MQyUXEKhSUYgUYb3IvdMDfxwPy1lazWzYRaERaR1gMur+SwV1w13X7MXaBGL+BnGlxQl2rgHgpu8DnVQADz/bsikVvrLhd+v+x6CGPMWEcKSyXgRn3paWmxYFrF5Ko0Lmx0livkOsFowotJYkZjCsskqhnEVpSsdgHXmZPsTDp7YMhVUFUNYrqsag19nGor2nm3QbXvAEuPAdXwzaCWXt3jR5ND2an785/nsw/vpm/+qLjSdVe/ox2/nk6Oz36dfj67Pvx2bfp7OXJ7MV09n46Ozz+/eOIrOdvP0GX9fZh/vUD7GJPFDFclS/kODJzWZ7Ksmmpj87kD72PK7Y=)
+- [exercise](https://play.vuejs.org/#eNqtVc1OFEEQfpXKXEYT3EnU07isvxz0oAT1Npdxp3ZpmOmezPTgmnUTEzVBlwRivEiInhAQxJ+DEvHnZXYAT76C1d3D7ADCyb1sdVV11VdVX/V0rctxXJvJ0HKtusQoDn2JDY8D1K+KKFYCgJulmIx6lvrzrEIXYxKxNGWCp2SqnIyHQ0HqTiUiHdNmwmIJKcoshtDnbbooyZ+sLIpFIqEL8kGMcJcSjSeixUIcMZoJEeL4MAf0oJWICOyao8x2GUCBLk3qoGojs8ebdE2CKsGtxodR6Cq83I/QBfuGmORwTaA9opQY+Swk7RRpa4HAS9jxqSCsNUWkPHoXhpErHXCPwC2S+EHEuAsyyVDHN2hafpiaczvDVJZ2Fb3umKY1rBFqFWVqsXZtKhWc5qVDehZhiamQ5FYsTftdk0zZ/DAU929oXZlU35nE5vQ/9FNpR+k8azxBwjaDnlXapJ+0URrz2O2b2CG5NEYiyELyPsE4gakIM4XRuF3JeECwK34a7XU9SMbbd9KxjkRecMoAVZ497e9ZNFg14ONKH8I9Vzuv71FHqYv7pDhK+IDNaIHEybMNxRG4zlui7tCp0MeNm5on3a6eXU2xBnq9uhMPPcYMafZdNIdKn2F8RRGocKSaJgsLieSQwcyZllD7d2rST4c3RiChEKeB8Sr3PAvcaXxA3sqqd8sEAoVI6QiLRncgGFwE+7JqPwY2EOOvIWdK7FHXCiBOyPbxOQXAumN6dsyiV1bcLP3/WHSPB9hiHOlanNb1uI8sNS0OnLiQRIXGqdOV9fK4WjDKUJMpMYNxiUnLbxqEhlQscIFn0T1MdHjzYKQyIapqRfFYlBrzOJRl6nmPgq3fABsegq1ga0GvvX2BHk0H8s3F3Z9reysv9p59VvdJNXr4p7V76/18c25ndmGwvTzY6udP1/JH/fx1P59d/vN9jqy7L1dhnDWnYe/rG5jApkgCOC6e1ldfxXxpNX/6eLD9ZbD1Pp9/t7P0bPDjF0XMZz/qynVQQ+0i86eNnUcrHseOnu/h6RYpDk83n/9A8PPZNQW27FK+/W13vW96sLv4ZGfj+e9XC1TUYOst4YLiiwUEzYA6mPVQDqv3FxHhhqY=)
 
 ---
 
@@ -461,30 +492,37 @@ console.log(person.age);  // 輸出: 25
 
 # type narrowing 型別縮小
 
-- 利用 if-else、typeof 等等的判斷 <span v-mark.circle.orange="0">縮小 type inference</span>：
+<div v-click="1">
+
+- 利用 if-else、typeof 等等的判斷式 <span v-mark.circle.orange="1">縮小 type inference</span>：
 
 ```ts
 let value: string | null = "Hello, world!";
 
 if (value !== null) {
-  // 在這裡，編譯器知道 value 是 string 而不是 null
   console.log(value.length);  // 可以安全地使用 string 的方法
 }
 ```
+
+</div>
+
+<br>
+
+<div v-click="2">
 
 - 使用 `typeof` 實作 type narrowing
 
 ```ts
 function printLength(value: string | number) {
   if (typeof value === "string") {
-    // value 的型別被縮小為 string
     console.log(value.length);  // 可以安全地使用 string 的方法
   } else {
-    // value 的型別被縮小為 number
     console.log(value.toFixed(2));  // 可以安全地使用 number 的方法
   }
 }
 ```
+
+</div>
 
 ---
 
@@ -492,7 +530,8 @@ function printLength(value: string | number) {
 
 
 - 這個技巧不管是在 function 還是在 vue 中都很實用
-```ts
+
+```ts {1,3-4}
 interface TextMessage {
   type: 'text';
   message: string;
