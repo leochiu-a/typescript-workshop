@@ -508,6 +508,7 @@ if (value !== null) {
 
 <br>
 
+
 <div v-click="2">
 
 - 使用 `typeof` 實作 type narrowing
@@ -557,6 +558,49 @@ if (message.type === 'text') {
 
 ---
 
+# Summary
+
+<v-clicks>
+
+- TypeScript 解決了 JavaScript 弱型別容易造成系統不穩定的痛點
+- 在寫 TypeScript 時以 type inference 為優先，不用一定要使用 type annotation
+- TypeScript 現今主要是用來做 type-checking 的工具
+  - vue 的官方有一個工具叫做 `vue-tsc`，通常可以搭配 git hooks 或 CI 做 type checking
+- 這次沒有提到 generic，generic 在設計泛用元件時非常好用
+- `enum` 有很多缺點，之後不建議寫 `enum`
+
+</v-clicks>
+
+---
+
+# (Bonus) Generic
+
+- 利用泛型建立一個 Tabs 元件，可以讓 `value` 允許是 `string | number`，不一定需要在 Tabs 上宣告型別，而是使用 type inference 的方式搭配 generic 推斷出型別是否合法：
+
+```ts
+<script setup lang="ts" generic="T extends string | number">
+defineProps<{
+  tabs: Array<{ text: string; value: T }>
+  activeKey: T
+}>()
+
+const emit = defineEmits<{
+  (e: 'onChangeTab', activeKey: T): void
+}>()
+</script>
+```
+
+```ts
+// OK
+<Tabs :tabs="[{ text: '飛機'; value: 'airplane' }]" />
+<Tabs :tabs="[{ text: '飛機'; value: 123 }]" />
+
+// error
+<Tabs :tabs="[{ text: '飛機'; value: true }]" />
+```
+
+---
+
 # 延伸閱讀
 
 如果想要完整的學習 TypeScript 推薦：
@@ -565,6 +609,7 @@ if (message.type === 'text') {
 2. [TypeScript official handbook](https://www.typescriptlang.org/docs/handbook)
 3. [TypeHero - 刷題](https://typehero.dev/tracks/typescript-foundations)
 4. [IT 鐵人 - 讓 TypeScript 成為你全端開發的 ACE！](https://ithelp.ithome.com.tw/users/20120614/ironman/2685)
+5. [TypeScript 新手指南](https://willh.gitbook.io/typescript-tutorial)
 
 
 ---
