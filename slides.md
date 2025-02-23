@@ -69,15 +69,20 @@ transition: slide-up
 
 # What is TypeScript?
 
+<v-clicks>
+
 - TypeScript 是由微軟進行開發和維護的一種開源的程式語言
 - JavaScript Superset，在 JavaScript 的基礎上擴展特性
 - 強型別程式語言
 - 瀏覽器不能執行，必須編譯成 JavaScript 才能執行
 
-<br>
+</v-clicks>
+
+<div v-click>
 
 <img src="/src/ts-compile-to-js.png" width="400px"/>
 
+</div>
 
 ---
 transition: slide-up
@@ -307,13 +312,11 @@ console.log(addOptional(5, 3)); // 輸出 8
 
 # Vue - defineProps
 
-<div v-click="1">
-
 - runtime declaration
 
 `lang="ts"` 在 Vue 使用 TypeScript 使用時必須要加，不然 Vue 不知道你是用 TS 還是 JS
 
-```ts {1-2|null}
+```ts {1|all|null}
 <script setup lang="ts">
 const props = defineProps({
   foo: { type: String, required: true },
@@ -324,8 +327,6 @@ props.foo // string
 props.bar // number | undefined
 </script>
 ```
-
-</div>
 
 <div v-click="2">
 
@@ -339,6 +340,7 @@ const props = defineProps<{
 ```
 
 </div>
+
 
 ---
 
@@ -395,7 +397,7 @@ const emit = defineEmits<{
 
 Pick 是 TypeScript 的一個內建工具類型，用來從一個型別中選擇某些屬性，並創建一個新型別，只包含這些屬性。
 
-```ts {2-3|5|all}
+```ts {7-8|2,4,7-8|all}
 interface Todo {
   title: string;
   description: string;
@@ -419,7 +421,7 @@ const todo: TodoPreview = {
 
 `Record` 可以幫助你根據某個 `Keys` set 來生成一個具有這些 `Keys` 且值為指定型別 `Type` 的物件。
 
-```ts
+```ts {8-9|all}
 type CatName = "miffy" | "boris" | "mordred";
  
 interface CatInfo {
@@ -445,7 +447,7 @@ const cats: Record<CatName, CatInfo> = {
 
 這樣可以確保 element 被轉換為 HTMLButtonElement 類型，並且你可以安全地訪問 HTMLButtonElement 上的屬性。
 
-```ts
+```ts {1-2|all}
 let element = document.getElementById("myButton");
 let button = element as HTMLButtonElement;
 button.disabled = true;
@@ -453,7 +455,7 @@ button.disabled = true;
 
 但強制轉換不是首選的做法，首選還是 type annotation 跟 type inference
 
-```ts
+```ts {1|all}
 let element: HTMLButtonElement = document.getElementById("myButton");
 let button = element;
 button.disabled = true;
@@ -467,7 +469,7 @@ button.disabled = true;
 
 - `!` Non-null assertion
 
-```typescript
+```typescript{2|all}
 function greet(name: string | null) {
   console.log("Hello, " + name!.toUpperCase());
 }
@@ -475,9 +477,11 @@ function greet(name: string | null) {
 greet("John"); 
 ```
 
-常見的範例還有像是 `arr.find()`
+<div v-click="2">
 
-```ts
+- 常見的範例還有像是 `arr.find()`
+
+```ts {|7|all}
 const people: Person[] = [
   { name: "Alice", age: 30 },
   { name: "Bob", age: 25 },
@@ -487,6 +491,9 @@ const people: Person[] = [
 let person = people.find(p => p.name === "Bob")!;
 console.log(person.age);  // 輸出: 25
 ```
+
+</div>
+
 
 ---
 
@@ -532,7 +539,7 @@ function printLength(value: string | number) {
 
 - 這個技巧不管是在 function 還是在 vue 中都很實用
 
-```ts {1,3-4}
+```ts {1-12|13-}
 interface TextMessage {
   type: 'text';
   message: string;
@@ -558,12 +565,34 @@ if (message.type === 'text') {
 
 ---
 
+# Type Inference & Type Annotation
+
+- Type Annotation
+
+```ts
+const value = ref<number>(1)
+```
+
+- Type Inference：
+
+```ts
+const value = ref(1)
+```
+
+|type annotation|type inference|
+|-|-|
+|適用於複雜的情境，ex: 設計多元篩選器的 filter 型別|適用於簡單的情境，ex: 一個 checkbox 的 boolean|
+|較為瑣碎，但 robust|有可能會無法精準推斷，例如物件的 key 通常都是推斷成 string|
+
+
+---
+
 # Summary
 
 <v-clicks>
 
 - TypeScript 解決了 JavaScript 弱型別容易造成系統不穩定的痛點
-- 在寫 TypeScript 時以 type inference 為優先，不用一定要使用 type annotation
+- 在寫 TypeScript 時 <span v-mark.orange>以 type inference 為優先</span>，不用一定要使用 type annotation
 - TypeScript 現今主要是用來做 type-checking 的工具
   - vue 的官方有一個工具叫做 `vue-tsc`，通常可以搭配 git hooks 或 CI 做 type checking
 - 這次沒有提到 generic，generic 在設計泛用元件時非常好用
@@ -577,7 +606,7 @@ if (message.type === 'text') {
 
 - 利用泛型建立一個 Tabs 元件，可以讓 `value` 允許是 `string | number`，不一定需要在 Tabs 上宣告型別，而是使用 type inference 的方式搭配 generic 推斷出型別是否合法：
 
-```ts
+```ts {1|2-9|12-}
 <script setup lang="ts" generic="T extends string | number">
 defineProps<{
   tabs: Array<{ text: string; value: T }>
@@ -588,9 +617,7 @@ const emit = defineEmits<{
   (e: 'onChangeTab', activeKey: T): void
 }>()
 </script>
-```
 
-```ts
 // OK
 <Tabs :tabs="[{ text: '飛機'; value: 'airplane' }]" />
 <Tabs :tabs="[{ text: '飛機'; value: 123 }]" />
@@ -603,14 +630,18 @@ const emit = defineEmits<{
 
 # 延伸閱讀
 
-如果想要完整的學習 TypeScript 推薦：
+- 建議閱讀：
 
-1. [roadmap.sh - TypeScript](https://roadmap.sh/typescript)
-2. [TypeScript official handbook](https://www.typescriptlang.org/docs/handbook)
-3. [TypeHero - 刷題](https://typehero.dev/tracks/typescript-foundations)
-4. [IT 鐵人 - 讓 TypeScript 成為你全端開發的 ACE！](https://ithelp.ithome.com.tw/users/20120614/ironman/2685)
-5. [TypeScript 新手指南](https://willh.gitbook.io/typescript-tutorial)
+  1. [roadmap.sh - TypeScript](https://roadmap.sh/typescript)
+  2. [TypeScript official handbook](https://www.typescriptlang.org/docs/handbook)
+  3. [type inference & type annotation](https://typescript.tv/hands-on/type-inference-type-annotations-in-typescript/)
+  4. [enum、const enum 和 as const，應該如何列舉資料於 TypeScript 當中？](https://www.webdong.dev/zh-tw/post/enum-const-enum-and-as-const/)
 
+- 其他：
+
+  1. [TypeHero - 刷題](https://typehero.dev/tracks/typescript-foundations)
+  2. [IT 鐵人 - 讓 TypeScript 成為你全端開發的 ACE！](https://ithelp.ithome.com.tw/users/20120614/ironman/2685)
+  3. [TypeScript 新手指南](https://willh.gitbook.io/typescript-tutorial)
 
 ---
 layout: center
