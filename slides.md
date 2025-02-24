@@ -15,10 +15,7 @@ Leo Chiu 2025/02
 </div>
 
 <div class="abs-br m-6 text-xl">
-  <button @click="$slidev.nav.openInEditor" title="Open in Editor" class="slidev-icon-btn">
-    <carbon:edit />
-  </button>
-  <a href="https://github.com/slidevjs/slidev" target="_blank" class="slidev-icon-btn">
+  <a href="https://github.com/leochiu-a/typescript-workshop" target="_blank" class="slidev-icon-btn">
     <carbon:logo-github />
   </a>
 </div>
@@ -139,7 +136,7 @@ const arr: string[] = ['Leo', 'Justin'、'Andy'];
 
 - Object: `interface`、`type`、`{}`
 
-```ts {1}
+```ts
 const obj: { first: string } = { first: 'Andy'};
 const obj: Name = { first: 'Andy'};
 ```
