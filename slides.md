@@ -614,6 +614,177 @@ const emit = defineEmits<{
 
 ---
 layout: center
+background: https://cover.sli.dev
+---
+
+# Part 2 - 實戰 TypeScript
+
+--- 
+
+# import 的 module 沒有型別時怎麼辦
+
+<div>
+
+也許你會遇到 `xxx` module 沒有型別的情境，有很多套件基礎是 JavaScript，而這些套件無法或是短期內無法轉換成 TypeScript：
+
+```ts {all|1-3}
+// Could not find a declaration file for module 'lodash'.
+// Try `npm i --save-dev @types/lodash` if it exists or add a new
+// declaration (.d.ts) file containing `declare module 'lodash';`
+import { get } from 'lodash';
+```
+
+- GitHub repo: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+如果 GitHub 上有定義型別，就可以直接執行以下指令：
+
+```bash
+pnpm i -D @types/lodash
+```
+
+</div>
+
+---
+
+# 如果沒有 `@types/xxx` 怎麼辦？
+
+<v-clicks>
+
+- `declare module 'xxx' {} `
+- 如何定義型別 `import { get } from 'lodash'`
+
+```ts {1-2,7|3-6}
+declare module 'lodash' {
+  export function get(obj: any, path: string): any;
+  export function get<TObject extends object, TKey extends keyof TObject>(
+    object: TObject | null | undefined,
+    path: TKey | [TKey]
+  ): TObject[TKey];
+}
+```
+
+</v-clicks>
+
+
+---
+
+# 第三種引入型別的方法
+
+<v-clicks>
+
+- 有些套件如果已經是 TypeScript，在 `import` 的時候就會有型別，舉例來說 `@vueuse/core` 原本就有型別
+- `package.json` 中的 `types` 即是型別的路徑
+- 有些套件的型別不是放在 `index.d.ts` 的時候，需要在 `tsconfig.json` 中註冊：
+  ```ts
+  // tsconfig
+  {
+    "compilerOptions": {
+      "types": ["<module-name>"]
+    }
+  }
+  ```
+
+</v-clicks>
+
+
+---
+
+# 如何設定 global 型別
+
+- 例如 `lang()` 或是 `_` 等等全域的 variables、functions
+- `declare global`
+
+```ts
+declare global {
+  const _: typeof import('lodash');
+}
+```
+
+- 如果是在 Vue `<template>` 中使用的話，需要定義在 `shims-vue.d.ts` 中
+
+```ts
+declare module 'vue/types/vue' {
+	interface Vue {
+		kkday: typeof import('@/share/js/libs/KKdayUtils').kkday;
+		_: typeof import('lodash');
+	}
+}
+```
+
+
+--- 
+
+# Vue Component 如何設定型別
+
+- `Vue.PropType`
+- `defineProps`
+
+```ts {1|3-9}
+/** @import { Message } from 'Message.type.ts' */
+
+defineProps({
+  message: {
+    /** @type {Vue.PropType<Message>} */
+    type: Object,
+    required: true,
+  },
+}
+```
+
+<!-- CityItem, CategorySlider -->
+
+--- 
+
+# Vuex 如何設定型別
+
+- 自定義型別
+
+```ts
+declare global {
+  type VuexGetters<State, Getters> = {
+    [K in keyof Getters]: (state: State, getters: Getters) => Getters[K];
+  };
+
+  type VuexActionTrees<State> = import('vuex').ActionTree<State, State>;
+}
+```
+
+- 定義 `RootState` 
+
+```ts
+/** @type {RootState} */
+const state = { /** */ }
+```
+
+- 定義 getters
+
+```ts
+/** @type {Getters} */
+const getters = { /** */ }
+```
+
+--- 
+
+# 定義 Vuex 的型別
+
+```ts
+// 定義初始的 state 型別
+interface RootState {
+  count: number;
+}
+
+// 定義 getter 的 state 型別，需要 extends RootState
+interface GettersState extends RootState {
+  doubleCount: number
+}
+
+// 定義 vuex 的 getters 型別
+export type Getters = VuexGetters<RootState, GettersState>;
+```
+
+
+---
+layout: center
 ---
 
 # Q&A
