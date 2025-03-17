@@ -652,16 +652,15 @@ pnpm i -D @types/lodash
 
 - `declare module 'xxx' {} `
 - 如何定義型別 `import { get } from 'lodash'`
-
-```ts {1-2,7|3-6}
-declare module 'lodash' {
-  export function get(obj: any, path: string): any;
-  export function get<TObject extends object, TKey extends keyof TObject>(
-    object: TObject | null | undefined,
-    path: TKey | [TKey]
-  ): TObject[TKey];
-}
-```
+  ```ts {1-2,7|3-6}
+  declare module 'lodash' {
+    export function get(obj: any, path: string): any;
+    export function get<TObject extends object, TKey extends keyof TObject>(
+      object: TObject | null | undefined,
+      path: TKey | [TKey]
+    ): TObject[TKey];
+  }
+  ```
 
 </v-clicks>
 
@@ -690,6 +689,7 @@ declare module 'lodash' {
 ---
 
 # 如何設定 global 型別
+<v-clicks>
 
 - 例如 `lang()` 或是 `_` 等等全域的 variables、functions
 - `declare global`
@@ -711,11 +711,15 @@ declare module 'vue/types/vue' {
 }
 ```
 
+</v-clicks>
+
+
 
 --- 
 
 # Vue Component 如何設定型別
 
+- `@import` - TypeScript 5.5 
 - `Vue.PropType`
 - `defineProps`
 
@@ -737,9 +741,11 @@ defineProps({
 
 # Vuex 如何設定型別
 
+<v-clicks>
+
 - 自定義型別
 
-```ts
+```ts {1-7|9-12|14-17|19-22|all}
 declare global {
   type VuexGetters<State, Getters> = {
     [K in keyof Getters]: (state: State, getters: Getters) => Getters[K];
@@ -747,7 +753,28 @@ declare global {
 
   type VuexActionTrees<State> = import('vuex').ActionTree<State, State>;
 }
+
+// 定義初始的 state 型別
+interface RootState {
+  count: number;
+}
+
+// 定義 getter 的 state 型別，需要 extends RootState
+interface GettersState extends RootState {
+  doubleCount: number
+}
+
+// 定義 vuex 的 getters 型別
+export type Getters = VuexGetters<RootState, GettersState>;
 ```
+
+</v-clicks>
+
+
+--- 
+
+# 定義 Vuex 的型別
+
 
 - 定義 `RootState` 
 
@@ -763,24 +790,6 @@ const state = { /** */ }
 const getters = { /** */ }
 ```
 
---- 
-
-# 定義 Vuex 的型別
-
-```ts
-// 定義初始的 state 型別
-interface RootState {
-  count: number;
-}
-
-// 定義 getter 的 state 型別，需要 extends RootState
-interface GettersState extends RootState {
-  doubleCount: number
-}
-
-// 定義 vuex 的 getters 型別
-export type Getters = VuexGetters<RootState, GettersState>;
-```
 
 
 ---
