@@ -4,6 +4,11 @@ background: https://cover.sli.dev
 title: TypeScript Workshop
 class: text-center
 transition: slide-left
+seoMeta:
+  ogTitle: 'TypeScript Workshop'
+  ogDescription: 'A TypeScript workshop for frontend developers'
+  ogImage: '/og-image.png'
+  ogUrl: https://leochiu-a.github.io/typescript-workshop/
 ---
 
 # TypeScript Workshop
